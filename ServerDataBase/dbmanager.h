@@ -13,8 +13,17 @@ public:
     DbManager(const QString &connectionName);
     DbManager();
     ~DbManager();
- //   qint64 checkUserInDataBase(const QString &username, const QString &password);
 
+    void setPassword(const QString& password );
+    void setUserName(const QString& username );
+    void setEmail(const QString& Email);
+
+
+    bool insertDataToTable(QString& OperationInfo);
+    qint64 getId(QString& OperationInfo);
+
+    QSqlDatabase db;
+private:
     /*Table*/
     enum users_accountTbl{
         _ID = 0,
@@ -30,19 +39,11 @@ public:
         BIRTHDAY,
         TIME_ZONE,
     };
-
-    bool insertDataToTable(QMap<users_accountTbl,QVariant> &data/*QVariantList &data const QString &table*/);
-    qint64 getId(const QVariant &username, const QVariant &password );
-
-QSqlDatabase db;
-private:
+    QMap<users_accountTbl,QVariant> userInfo;
 
     bool connectDataBase(const QString &path,const QString &connectionName);
     bool connectDataBase();
     bool disconnect();
-
-
-
 
 };
 

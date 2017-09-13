@@ -105,13 +105,14 @@ bool DbManager::connectDataBase()
 
 
 
-bool DbManager::insertDataToTable(QMap<users_accountTbl,QVariant> &data)
+bool DbManager::insertDataToTable(QString& OperationInfo)
 {
     QSqlQuery query(this->db);
 
 
-    if(data.isEmpty()){
+    if(userInfo.isEmpty()){
         qDebug() << "Data empty";
+        OperationInfo = "Data empty";
         return false;
     }
 
@@ -121,26 +122,32 @@ bool DbManager::insertDataToTable(QMap<users_accountTbl,QVariant> &data)
 
 
 
-    //query.bindValue(":_id"          ,       data[_ID]);
-    query.bindValue(":name"         ,       data[NAME]);
-    query.bindValue(":second_name"  ,       data[SECOND_NAME]);
+    //query.bindValue(":_id"          ,       userInfo[_ID]);
+    query.bindValue(":name"         ,       userInfo[NAME]);
+    query.bindValue(":second_name"  ,       userInfo[SECOND_NAME]);
 
-    query.bindValue(":user_name"    ,       data[USER_NAME]);
-    query.bindValue(":password"     ,       data[PASSWORD]);
-    query.bindValue(":email"        ,       data[EMAIL]);
-    query.bindValue(":extra_mail"   ,       data[EXTRA_MAIL]);
-    query.bindValue(":model"        ,       data[MODEL]);
-    query.bindValue(":sex"          ,       data[SEX]);
-    query.bindValue(":age"          ,       data[AGE]);
-    query.bindValue(":birthday"     ,       data[BIRTHDAY]);
-    query.bindValue(":time_zone"    ,       data[TIME_ZONE]);
+    query.bindValue(":user_name"    ,       userInfo[USER_NAME]);
+    query.bindValue(":password"     ,       userInfo[PASSWORD]);
+    query.bindValue(":email"        ,       userInfo[EMAIL]);
+    query.bindValue(":extra_mail"   ,       userInfo[EXTRA_MAIL]);
+    query.bindValue(":model"        ,       userInfo[MODEL]);
+    query.bindValue(":sex"          ,       userInfo[SEX]);
+    query.bindValue(":age"          ,       userInfo[AGE]);
+    query.bindValue(":birthday"     ,       userInfo[BIRTHDAY]);
+    query.bindValue(":time_zone"    ,       userInfo[TIME_ZONE]);
 
     bool isOK = query.exec();
 
     if(!isOK){
-      qDebug() << "Data was not insert";
-      qDebug() << query.lastError().text();
+        qDebug() << "Data was not insert";
+        qDebug() << query.lastError().text();
+        OperationInfo = query.lastError().text();
     }
+    else{
+        OperationInfo = "Ok";
+    }
+
+    userInfo.clear();               /*Очищаем данные*/
 
     return isOK;
 
@@ -152,25 +159,50 @@ bool DbManager::insertDataToTable(QMap<users_accountTbl,QVariant> &data)
  * В случае ошибки возвращается -1
 */
 
-qint64 DbManager::getId(const QVariant &username, const QVariant &password )
+qint64 DbManager::getId(QString& OperationInfo)
 {
     QSqlQuery query(this->db);
-
+    qint64 retId;
     query.prepare("SELECT _id FROM user_accounts WHERE user_name = (:un) AND password = (:pw)");
-    query.bindValue(":un", username.toString());
-    query.bindValue(":pw", password.toString());
+    query.bindValue(":un", this->userInfo[USER_NAME].toString());
+    query.bindValue(":pw", this->userInfo[PASSWORD].toString());
+
 
     if(!query.exec()){
         qDebug() << " Data was not select";
         qDebug() << query.lastError().text();
-        return -1;
-     }
+        OperationInfo = query.lastError().text();
+        retId = -1;
+    }
 
-    if (query.next())
-        return query.value(DbManager::_ID).toInt();
-    else
-        return -1;
+    if (query.next()){
+        retId =  query.value(DbManager::_ID).toInt();
+        OperationInfo = "Ok";
+    }
+    else{
+        retId = -1;
+    }
 
+    this->userInfo.clear();
+
+    return retId;
+
+
+}
+
+void DbManager:: setPassword(const QString& password )
+{
+    this->userInfo[PASSWORD] = password;
+}
+
+void DbManager:: setUserName(const QString& username )
+{
+    this->userInfo[USER_NAME] = username;
+}
+
+void DbManager::setEmail(const QString& Email)
+{
+    this->userInfo[EMAIL] = Email;
 }
 
 

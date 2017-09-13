@@ -25,6 +25,9 @@
      <height>311</height>
     </rect>
    </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
    <widget class="QWidget" name="SignInPage">
     <widget class="QLineEdit" name="usernameLine">
      <property name="geometry">
@@ -200,8 +203,11 @@ Color: #fefefe;</string>
      <property name="text">
       <string>Okey</string>
      </property>
+     <property name="shortcut">
+      <string>Return</string>
+     </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="usernameRegLine">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -221,7 +227,7 @@ color: #fefefe;</string>
       <string>Логин</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="passwordRegLine">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -241,7 +247,7 @@ color: #fefefe;</string>
       <string>Пароль</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_3">
+    <widget class="QLineEdit" name="emailRegLine">
      <property name="geometry">
       <rect>
        <x>100</x>

@@ -20,6 +20,7 @@ public:
 
 private slots:
     void signIn();
+    void signUp();
 
 
 private:
@@ -37,6 +38,7 @@ private slots:
 
 
     void on_PushButton_backLoginForm_clicked();
+
 
 signals:
     void finished(qint64 id);

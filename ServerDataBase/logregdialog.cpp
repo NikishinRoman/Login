@@ -15,11 +15,20 @@ LogregDialog::LogregDialog(QWidget *parent) :
 
     this->showSignInPage(" ");
 
-
+    /*Связываем кнопку входа с обработчиком входа*/
     connect(ui->PushButton_SignIn, SIGNAL(clicked(bool)), SLOT(signIn()));
+
+    /* Связываем кнопку старта регистрации с обработчиком регистрации */
+    connect(ui->PushButton_StartReg, SIGNAL(clicked(bool)), SLOT(signUp()));
+
+
     connect(&this->LManager, SIGNAL(AuthorizationBad(const QString &)),SLOT(showSignInPage(const QString &)));
+
     connect(&this->LManager, SIGNAL(AuthorizationOk(qint64)), SLOT(LoginOk(qint64)));
+
     connect(ui->RegistrationLink, SIGNAL(clicked()), SLOT(showSignUpPage()));
+
+    connect(&this->LManager, SIGNAL(RegistrationOk(const QString &)), SLOT(showSignInPage(const QString &)));
 
 }
 LogregDialog::~LogregDialog()
@@ -31,7 +40,7 @@ LogregDialog::~LogregDialog()
 
 void LogregDialog::showSignInPage(const QString &msg)
 {
-    showLoginStatus(msg);
+    this->showLoginStatus(msg);
     ui->Loader->hide();
     ui->PushButton_SignIn->setDisabled(false);
     ui->stackedWidget->setCurrentIndex(0);
@@ -39,6 +48,7 @@ void LogregDialog::showSignInPage(const QString &msg)
 
 void LogregDialog::showSignUpPage()
 {
+    ui->PushButton_StartReg->setDisabled(false);
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -46,10 +56,24 @@ void LogregDialog::signIn()
 {
     ui->Loader->show();
     ui->PushButton_SignIn->setDisabled(true);
-    this->LManager.setUsername(ui->usernameLine->text());
-    this->LManager.setPassword(ui->passwordLine->text());
-    this->LManager.startAuthorization();
+    this->LManager.startAuthorization(ui->usernameLine->text(),
+                                      ui->passwordLine->text());
 }
+
+
+
+void LogregDialog::signUp()
+{
+
+    ui->PushButton_StartReg->setDisabled(true);
+
+    this->LManager.startRegistration(ui->usernameRegLine->text(),
+                                     ui->passwordRegLine->text(),
+                                     ui->emailRegLine->text());
+}
+
+
+
 
 
 
@@ -73,3 +97,5 @@ void LogregDialog::on_PushButton_backLoginForm_clicked()
 {
     showSignInPage(" ");
 }
+
+

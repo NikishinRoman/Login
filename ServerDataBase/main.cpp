@@ -15,11 +15,11 @@ int main(int argc, char *argv[])
     MainWindow w;
 
 
-    QMap<DbManager::users_accountTbl,QVariant> d;
+    //QMap<DbManager::users_accountTbl,QVariant> d;
     //d[DbManager::NAME] = "trete111";
-    d[DbManager::SECOND_NAME] = "Пантелеймон1";
-    d[DbManager::USER_NAME] = "Nikishyn122";
-    d[DbManager::PASSWORD] = "6666";
+//    d[DbManager::SECOND_NAME] = "Пантелеймон1";
+//    d[DbManager::USER_NAME] = "Nikishyn122";
+//    d[DbManager::PASSWORD] = "6666";
 
 
 

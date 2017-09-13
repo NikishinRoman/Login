@@ -7,10 +7,12 @@ LoginManager::LoginManager()
 
 }
 
-void LoginManager::startAuthorization()
+void LoginManager::startAuthorization(const QString &username,const QString &password)
 {
 
-    int id =  CtrlDataBase.getId(username,password);
+    CtrlDataBase.setUserName(username);
+    CtrlDataBase.setPassword(password);
+    int id =  CtrlDataBase.getId(OperationInfo);
 
     if(id != -1){
         emit AuthorizationOk(id);
@@ -18,16 +20,24 @@ void LoginManager::startAuthorization()
     else{
         emit AuthorizationBad("Пара логин/пароль не совпали");
     }
-
 }
 
 
-void LoginManager::setPassword(const QString &pass)
+void LoginManager::startRegistration(const QString& username,const QString& password, const QString& email)
 {
-    this->password = pass;
-}
+    bool isOK;
 
-void LoginManager::setUsername(const QString &user)
-{
-    this->username = user;
+    CtrlDataBase.setUserName(username);
+    CtrlDataBase.setPassword(password);
+    CtrlDataBase.setEmail(email);
+    isOK = CtrlDataBase.insertDataToTable(this->OperationInfo);
+
+
+    if(isOK){
+        emit RegistrationOk("Регистрация успешна");
+    }
+    else{
+        qDebug() << "Data was not insert";
+        emit RegistrationBad(this->OperationInfo);
+    }
 }
