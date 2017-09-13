@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui sql
+QT += testlib
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -29,13 +30,15 @@ SOURCES += \
         mainwindow.cpp \
     dbmanager.cpp \
     loginmanager.cpp \
-    logregdialog.cpp
+    logregdialog.cpp \
+    clickablelabel.cpp
 
 HEADERS += \
         mainwindow.h \
     dbmanager.h \
     loginmanager.h \
-    logregdialog.h
+    logregdialog.h \
+    clickablelabel.h
 
 FORMS += \
         mainwindow.ui \

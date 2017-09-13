@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>335</width>
-    <height>300</height>
+    <width>430</width>
+    <height>334</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,9 +20,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>40</y>
-     <width>351</width>
-     <height>231</height>
+     <y>20</y>
+     <width>411</width>
+     <height>311</height>
     </rect>
    </property>
    <widget class="QWidget" name="SignInPage">
@@ -41,6 +41,12 @@ padding-right: 20px;
 border-radius: 20px;
 background: #333;
 color: #fefefe;</string>
+     </property>
+     <property name="maxLength">
+      <number>64</number>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Normal</enum>
      </property>
      <property name="placeholderText">
       <string>Логин</string>
@@ -61,6 +67,12 @@ padding-right: 20px;
 border-radius: 20px;
 background: #333;
 color: #fefefe;</string>
+     </property>
+     <property name="maxLength">
+      <number>64</number>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
      </property>
      <property name="placeholderText">
       <string>Пароль</string>
@@ -95,29 +107,172 @@ color: #fefefe;</string>
       <string/>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="RegistrationPage"/>
-  </widget>
-  <widget class="QPushButton" name="PushButton_SignIn">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>260</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">Padding: 1px;
+    <widget class="QPushButton" name="PushButton_SignIn">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>220</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">Padding: 1px;
 Border-radius: 5px;
 Background: #393;
 Color: #fefefe;</string>
-   </property>
-   <property name="text">
-    <string>Вход</string>
-   </property>
+     </property>
+     <property name="text">
+      <string>Вход</string>
+     </property>
+     <property name="shortcut">
+      <string>Return</string>
+     </property>
+    </widget>
+    <widget class="ClickableLabel" name="RegistrationLink">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>280</y>
+       <width>101</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">Padding: 1px;
+Border-radius: 5px;
+
+Color: #fefefe;</string>
+     </property>
+     <property name="text">
+      <string>Регистрация</string>
+     </property>
+    </widget>
+    <zorder>usernameLine</zorder>
+    <zorder>passwordLine</zorder>
+    <zorder>Loader</zorder>
+    <zorder>label_status</zorder>
+    <zorder>PushButton_SignIn</zorder>
+    <zorder>PushButton_SignIn</zorder>
+    <zorder>RegistrationLink</zorder>
+   </widget>
+   <widget class="QWidget" name="RegistrationPage">
+    <widget class="QPushButton" name="PushButton_backLoginForm">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>260</y>
+       <width>71</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">Padding: 1px;
+Border-radius: 5px;
+Background: #933;
+Color: #fefefe;</string>
+     </property>
+     <property name="text">
+      <string>Назад</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="PushButton_StartReg">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>260</y>
+       <width>71</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">Padding: 1px;
+Border-radius: 5px;
+Background: #393;
+Color: #fefefe;</string>
+     </property>
+     <property name="text">
+      <string>Okey</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>40</y>
+       <width>191</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">padding-left: 20px;
+padding-right: 20px;
+border-radius: 20px;
+background: #333;
+color: #fefefe;</string>
+     </property>
+     <property name="placeholderText">
+      <string>Логин</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>110</y>
+       <width>191</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">padding-left: 20px;
+padding-right: 20px;
+border-radius: 20px;
+background: #333;
+color: #fefefe;</string>
+     </property>
+     <property name="placeholderText">
+      <string>Пароль</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>180</y>
+       <width>181</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">padding-left: 20px;
+padding-right: 20px;
+border-radius: 20px;
+background: #333;
+color: #fefefe;</string>
+     </property>
+     <property name="placeholderText">
+      <string>email</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
+  <zorder>stackedWidget</zorder>
+  <zorder>PushButton_SignIn</zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ClickableLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">clickablelabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

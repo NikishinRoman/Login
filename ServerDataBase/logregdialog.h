@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QMovie>
+#include "loginmanager.h"
+#include "clickablelabel.h"
 
 namespace Ui {
 class LogregDialog;
@@ -23,9 +25,21 @@ private slots:
 private:
     Ui::LogregDialog *ui;
     QMovie LoaderGif;
-    void showSignInPage();
     void showLoginStatus(const QString& msg);
 
+
+    LoginManager LManager;
+
+private slots:
+    void showSignInPage(const QString &msg);
+    void showSignUpPage();
+    void LoginOk(qint64 id);
+
+
+    void on_PushButton_backLoginForm_clicked();
+
+signals:
+    void finished(qint64 id);
 
 };
 

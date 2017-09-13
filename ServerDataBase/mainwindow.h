@@ -21,6 +21,11 @@ public:
 private:
     Ui::MainWindow *ui;
     LogregDialog l;
+
+
+
+public slots:
+    void ShowId(qint64);
 };
 
 #endif // MAINWINDOW_H

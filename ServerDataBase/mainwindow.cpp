@@ -7,11 +7,21 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-      l.show();
+    connect(&l, SIGNAL(finished(qint64)), SLOT(ShowId(qint64)));
+
+    l.show();
+    l.exec();
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow:: ShowId(qint64 id)
+{
+    QString msg = QString::number(id);;
+
+    ui->label->setText(msg);
 }
