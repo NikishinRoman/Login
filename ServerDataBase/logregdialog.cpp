@@ -12,6 +12,14 @@ LogregDialog::LogregDialog(QWidget *parent) :
     ui->Loader->setMovie(&LoaderGif);
     ui->Loader->movie()->start();
 
+    /* Запретим вводить русские символы в поле email*/
+    QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+    mailREX.setCaseSensitivity(Qt::CaseInsensitive);
+    mailREX.setPatternSyntax(QRegExp::RegExp);
+    QValidator *pEmailValidator =  new QRegExpValidator(mailREX, this);
+    ui->emailRegLine->setValidator(pEmailValidator);
+
+
 
     this->showSignInPage(" ");
 
@@ -26,10 +34,11 @@ LogregDialog::LogregDialog(QWidget *parent) :
 
     connect(&this->LManager, SIGNAL(AuthorizationOk(qint64)), SLOT(LoginOk(qint64)));
 
-    connect(ui->RegistrationLink, SIGNAL(clicked()), SLOT(showSignUpPage()));
+    connect(ui->RegistrationLink, SIGNAL(clicked(const QString &)), SLOT(showSignUpPage(const QString &)));
 
     connect(&this->LManager, SIGNAL(RegistrationOk(const QString &)), SLOT(showSignInPage(const QString &)));
 
+    connect(&this->LManager, SIGNAL(RegistrationBad(const QString &)), SLOT(showSignUpPage(const QString &)));
 }
 LogregDialog::~LogregDialog()
 {
@@ -46,8 +55,10 @@ void LogregDialog::showSignInPage(const QString &msg)
     ui->stackedWidget->setCurrentIndex(0);
 }
 
-void LogregDialog::showSignUpPage()
+void LogregDialog::showSignUpPage(const QString &msg)
 {
+    //ui->Loader->hide();
+    showRegistrationStatus(msg);
     ui->PushButton_StartReg->setDisabled(false);
     ui->stackedWidget->setCurrentIndex(1);
 }
@@ -64,8 +75,9 @@ void LogregDialog::signIn()
 
 void LogregDialog::signUp()
 {
-
+    //ui->Loader->show();
     ui->PushButton_StartReg->setDisabled(true);
+
 
     this->LManager.startRegistration(ui->usernameRegLine->text(),
                                      ui->passwordRegLine->text(),
@@ -74,13 +86,15 @@ void LogregDialog::signUp()
 
 
 
-
-
-
-
-void LogregDialog::showLoginStatus(const QString& msg)
+void LogregDialog::showLoginStatus(const QString &msg)
 {
     ui->label_status->setText(msg);
+}
+
+
+void LogregDialog::showRegistrationStatus(const QString& msg)
+{
+    ui->label_reg_status->setText(msg);
 }
 
 

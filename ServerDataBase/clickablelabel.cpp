@@ -13,5 +13,6 @@ ClickableLabel::~ClickableLabel()
 
 void ClickableLabel::mousePressEvent(QMouseEvent* event)
 {
-    emit clicked();
+    Q_UNUSED(event) ;
+    emit clicked("Регистрация");
 }

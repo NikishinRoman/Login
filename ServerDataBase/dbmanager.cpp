@@ -50,9 +50,6 @@ bool DbManager::disconnect()
 
 }
 
-
-
-
 /*
  *      Метод соедение с БД.
  *  path - ссылка на строку с путемм к файлу БД sqlite
@@ -186,9 +183,47 @@ qint64 DbManager::getId(QString& OperationInfo)
     this->userInfo.clear();
 
     return retId;
+}
 
+
+
+bool DbManager::isUserNameSelected(const QString &username)
+{
+
+
+    return isAvailableData("user_name",username);
 
 }
+
+bool DbManager::isEmailSelected(const QString &email)
+{
+
+    return isAvailableData("email",email);
+
+}
+
+
+/*
+ * return  false данных в таблице нет, true - существуют
+*/
+bool DbManager::isAvailableData(const QString &columnName, QVariant data)
+{
+    //bool ret;
+    QSqlQuery query(this->db);
+
+    qDebug() <<  "SELECT " + columnName + " FROM user_accounts WHERE "+columnName + " = (:key)";
+
+    query.prepare("SELECT " + columnName + " FROM user_accounts WHERE "+columnName + " = (:key)");
+    query.bindValue(":key", data.toString());
+
+    query.exec();  /* обработку не успешного запроса надо сделать*/
+
+    qDebug() << query.lastError().text() ;//<< ret;
+
+    return query.next();
+}
+
+
 
 void DbManager:: setPassword(const QString& password )
 {

@@ -157,13 +157,6 @@ Color: #fefefe;</string>
       <string>Регистрация</string>
      </property>
     </widget>
-    <zorder>usernameLine</zorder>
-    <zorder>passwordLine</zorder>
-    <zorder>Loader</zorder>
-    <zorder>label_status</zorder>
-    <zorder>PushButton_SignIn</zorder>
-    <zorder>PushButton_SignIn</zorder>
-    <zorder>RegistrationLink</zorder>
    </widget>
    <widget class="QWidget" name="RegistrationPage">
     <widget class="QPushButton" name="PushButton_backLoginForm">
@@ -267,10 +260,24 @@ color: #fefefe;</string>
       <string>email</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_reg_status">
+     <property name="geometry">
+      <rect>
+       <x>76</x>
+       <y>0</y>
+       <width>281</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #fefefe;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
   </widget>
-  <zorder>stackedWidget</zorder>
-  <zorder>PushButton_SignIn</zorder>
  </widget>
  <customwidgets>
   <customwidget>

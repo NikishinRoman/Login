@@ -9,7 +9,7 @@ public:
     explicit ClickableLabel(QWidget* parent=0 );
     ~ClickableLabel();
 signals:
-    void clicked();
+    void clicked(const QString &);
 protected:
     void mousePressEvent(QMouseEvent* event);
 };

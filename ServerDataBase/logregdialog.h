@@ -27,13 +27,15 @@ private:
     Ui::LogregDialog *ui;
     QMovie LoaderGif;
     void showLoginStatus(const QString& msg);
+    void showRegistrationStatus(const QString& msg);
 
 
     LoginManager LManager;
 
+
 private slots:
     void showSignInPage(const QString &msg);
-    void showSignUpPage();
+    void showSignUpPage(const QString &msg);
     void LoginOk(qint64 id);
 
 

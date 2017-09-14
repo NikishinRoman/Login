@@ -26,18 +26,35 @@ void LoginManager::startAuthorization(const QString &username,const QString &pas
 void LoginManager::startRegistration(const QString& username,const QString& password, const QString& email)
 {
     bool isOK;
+/*Валидацию необходимо перенести в отдельный метод*/
+    if(username.isEmpty() || password.isEmpty() || email.isEmpty()){
+        emit RegistrationBad("Ошибка: Введены не все данные");
+        return;
+    }
+
+    if(CtrlDataBase.isUserNameSelected(username)){
+        emit RegistrationBad("Ошибка:Имя пользователя занято");
+        return;
+    }
+
+    if(CtrlDataBase.isEmailSelected(email)){
+        emit RegistrationBad("Ошибка:Адрес почты занят");
+        return;
+    }
+
+
+
 
     CtrlDataBase.setUserName(username);
     CtrlDataBase.setPassword(password);
     CtrlDataBase.setEmail(email);
     isOK = CtrlDataBase.insertDataToTable(this->OperationInfo);
 
-
     if(isOK){
         emit RegistrationOk("Регистрация успешна");
     }
     else{
-        qDebug() << "Data was not insert";
-        emit RegistrationBad(this->OperationInfo);
+        qDebug() << "Ошибка регистрации";
+        //emit RegistrationBad(this->OperationInfo);
     }
 }

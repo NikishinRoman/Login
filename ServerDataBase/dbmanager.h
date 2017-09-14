@@ -21,6 +21,8 @@ public:
 
     bool insertDataToTable(QString& OperationInfo);
     qint64 getId(QString& OperationInfo);
+    bool isUserNameSelected(const QString &username);
+    bool isEmailSelected(const QString &email);
 
     QSqlDatabase db;
 private:
@@ -44,6 +46,7 @@ private:
     bool connectDataBase(const QString &path,const QString &connectionName);
     bool connectDataBase();
     bool disconnect();
+    bool isAvailableData(const QString &columnName, QVariant data);
 
 };
 
