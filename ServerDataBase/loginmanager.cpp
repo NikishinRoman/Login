@@ -26,7 +26,9 @@ void LoginManager::startAuthorization(const QString &username,const QString &pas
 void LoginManager::startRegistration(const QString& username,const QString& password, const QString& email)
 {
     bool isOK;
-/*Валидацию необходимо перенести в отдельный метод*/
+
+
+    /*Валидацию необходимо перенести в отдельный метод*/
     if(username.isEmpty() || password.isEmpty() || email.isEmpty()){
         emit RegistrationBad("Ошибка: Введены не все данные");
         return;
@@ -42,9 +44,6 @@ void LoginManager::startRegistration(const QString& username,const QString& pass
         return;
     }
 
-
-
-
     CtrlDataBase.setUserName(username);
     CtrlDataBase.setPassword(password);
     CtrlDataBase.setEmail(email);
@@ -58,3 +57,11 @@ void LoginManager::startRegistration(const QString& username,const QString& pass
         //emit RegistrationBad(this->OperationInfo);
     }
 }
+
+
+void LoginManager::errorHandleDb(const QString &msg)
+{
+
+}
+
+

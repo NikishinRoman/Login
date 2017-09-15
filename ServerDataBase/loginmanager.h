@@ -26,7 +26,8 @@ private:
     DbManager CtrlDataBase;
     QString OperationInfo;
 
-
+private slots:
+     void errorHandleDb(const QString &);
 
 };
 

@@ -10,7 +10,6 @@ class DbManager
 {
 public:
 
-    DbManager(const QString &connectionName);
     DbManager();
     ~DbManager();
 
@@ -43,10 +42,14 @@ private:
     };
     QMap<users_accountTbl,QVariant> userInfo;
 
-    bool connectDataBase(const QString &path,const QString &connectionName);
+
     bool connectDataBase();
     bool disconnect();
     bool isAvailableData(const QString &columnName, QVariant data);
+
+
+signals:
+    void errorDb(const QString &);
 
 };
 

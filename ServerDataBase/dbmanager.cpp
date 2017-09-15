@@ -3,15 +3,6 @@
 
 
 
-DbManager::DbManager(const QString &connectionName)
-{
-
-    QString pathToBd = qApp->applicationDirPath() + QDir::separator() + "AssistantDBlsql" ;
-    this->connectDataBase(pathToBd,connectionName);
-}
-
-
-
 DbManager::DbManager()
 {
 
@@ -50,41 +41,28 @@ bool DbManager::disconnect()
 
 }
 
-/*
- *      Метод соедение с БД.
- *  path - ссылка на строку с путемм к файлу БД sqlite
- */
 
-bool DbManager::connectDataBase(const QString &path, const QString &connectionName)
-{
-    bool ret;
-
-    this->db = QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE",connectionName));
-    this->db.setDatabaseName(path);
-    ret = this->db.open();
-
-    if (ret){
-        qDebug() << "Успешное соединение с базой данных";
-
-    }
-    else{
-        qDebug() << "Ошибка: Не возможно соединиться с базой данных";
-        qDebug() << this->db.lastError().text();
-    }
-    return ret;
-}
 
 bool DbManager::connectDataBase()
 {
     bool ret;
 
 
-    this->db = QSqlDatabase::addDatabase("QPSQL");
-    this->db.setHostName("localhost");
-    this->db.setDatabaseName("user_accounts");
-    this->db.setUserName("nikishyn");
-    this->db.setPassword("Qwerty123!");
+    if(QSqlDatabase::contains(QSqlDatabase::defaultConnection)) {
+        db = QSqlDatabase::database();
+    } else {
+//        this->db = QSqlDatabase::addDatabase("QPSQL");
+//        this->db.setHostName("localhost");
+//        this->db.setDatabaseName("user_accounts");
+//        this->db.setUserName("nikishyn");
+//        this->db.setPassword("Qwerty123!");
 
+        this->db = QSqlDatabase::addDatabase("QPSQL");
+            this->db.setHostName("192.168.146.52");
+            this->db.setDatabaseName("user_accounts");
+            this->db.setUserName("nikishyn");
+            this->db.setPassword("Qwerty123!");
+    }
 
     ret = this->db.open();
 
@@ -211,12 +189,12 @@ bool DbManager::isAvailableData(const QString &columnName, QVariant data)
     //bool ret;
     QSqlQuery query(this->db);
 
-    qDebug() <<  "SELECT " + columnName + " FROM user_accounts WHERE "+columnName + " = (:key)";
+    //qDebug() <<  "SELECT " + columnName + " FROM user_accounts WHERE "+columnName + " = (:key)";
 
     query.prepare("SELECT " + columnName + " FROM user_accounts WHERE "+columnName + " = (:key)");
     query.bindValue(":key", data.toString());
 
-    query.exec();  /* обработку не успешного запроса надо сделать*/
+    query.exec();
 
     qDebug() << query.lastError().text() ;//<< ret;
 
