@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/icons">
         <file>resources/loader.gif</file>
+        <file>resources/login.png</file>
+        <file>resources/passwordicon.png</file>
+        <file>resources/email-icon .png</file>
     </qresource>
 </RCC>

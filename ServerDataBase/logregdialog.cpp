@@ -14,6 +14,7 @@ LogregDialog::LogregDialog(QWidget *parent) :
 
     /* Запретим вводить русские символы в поле email*/
     QRegExp mailREX("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+
     mailREX.setCaseSensitivity(Qt::CaseInsensitive);
     mailREX.setPatternSyntax(QRegExp::RegExp);
     QValidator *pEmailValidator =  new QRegExpValidator(mailREX, this);
@@ -49,7 +50,10 @@ LogregDialog::~LogregDialog()
 
 void LogregDialog::showSignInPage(const QString &msg)
 {
+
     this->showLoginStatus(msg);
+    ui->usernameLine->clear();
+    ui->passwordLine->clear();
     ui->Loader->hide();
     ui->PushButton_SignIn->setDisabled(false);
     ui->stackedWidget->setCurrentIndex(0);
