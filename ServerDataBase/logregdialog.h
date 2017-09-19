@@ -5,6 +5,9 @@
 #include <QMovie>
 #include "loginmanager.h"
 #include "clickablelabel.h"
+#include "accountsCache.h"
+
+
 
 namespace Ui {
 class LogregDialog;
@@ -28,16 +31,17 @@ private:
     QMovie LoaderGif;
     void showLoginStatus(const QString& msg);
     void showRegistrationStatus(const QString& msg);
-
+    accountsCache m_accountsCache;
+    void loadAccounts();
+    void addAccountToCache();
 
     LoginManager LManager;
-
 
 private slots:
     void showSignInPage(const QString &msg);
     void showSignUpPage(const QString &msg);
     void LoginOk(qint64 id);
-
+    void userNameCompleter_activated(const QString& user);
 
     void on_PushButton_backLoginForm_clicked();
 

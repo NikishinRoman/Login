@@ -61,7 +61,7 @@ void LoginManager::startRegistration(const QString& username,const QString& pass
 
 void LoginManager::errorHandleDb(const QString &msg)
 {
-
+    Q_UNUSED(msg);
 }
 
 

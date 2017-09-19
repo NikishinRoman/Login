@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql xml
 QT += testlib
 
 
@@ -31,27 +31,24 @@ SOURCES += \
     dbmanager.cpp \
     loginmanager.cpp \
     logregdialog.cpp \
-    clickablelabel.cpp
+    clickablelabel.cpp \
+    accountsCache.cpp \
+    utils.cpp
 
 HEADERS += \
         mainwindow.h \
     dbmanager.h \
     loginmanager.h \
     logregdialog.h \
-    clickablelabel.h
+    clickablelabel.h \
+    accountsCache.h \
+    utils.h
 
 FORMS += \
         mainwindow.ui \
     logregdialog.ui
 
-#INCLUDEPATH += $$PWD/boost_1_64_0/include
-#DEPENDPATH += $$PWD/boost_1_64_0/include
 
-#unix:!macx: LIBS += -L$$PWD/boost_1_64_0/lib/ -lboost_system -lboost_thread -lboost_serialization -lboost_filesystem
-
-
-
-#LIBS += -lcrypto -lssl
 
 RESOURCES += \
     resources.qrc
