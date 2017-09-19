@@ -45,6 +45,8 @@ private slots:
 
     void on_PushButton_backLoginForm_clicked();
 
+    //void test();
+
 
 signals:
     void finished(qint64 id);

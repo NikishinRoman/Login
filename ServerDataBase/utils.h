@@ -25,20 +25,13 @@
 #ifndef CLIENTUTILS_H
 #define CLIENTUTILS_H
 
-//#include "QXmppPresence.h"
-//#include "userchat.h"
+
 
 #include <QCryptographicHash>
 #include <QBuffer>
 #include <QImageReader>
 
-/*
-int comparisonWeightsPresenceStatusType(QXmppPresence::AvailableStatusType);
-int comparisonWeightsPresenceType(QXmppPresence::Type);
-int comparisonWeightsStatusReceivedMessageType(userChat::StatusReceivedMessage statusType);
 
-QString presenceToStatusText(const QXmppPresence& presence);
-*/
 QString getSettingsDir(const QString& bareJid = "");
 
 QString getSha1HashAsHex(const QByteArray& image);

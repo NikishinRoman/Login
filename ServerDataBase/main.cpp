@@ -5,7 +5,7 @@
 #include "QSqlQuery"
 #include <QDebug>
 #include "dbmanager.h"
-//#include "examplethreads.h
+#include "examplethreads.h"
 
 
 

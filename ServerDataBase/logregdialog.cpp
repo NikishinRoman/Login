@@ -46,11 +46,12 @@ LogregDialog::LogregDialog(QWidget *parent) :
                              SIGNAL(activated(QString)),
                              this, SLOT(userNameCompleter_activated(QString)));
 
+//    connect(ui->emailRegLine,SIGNAL(editingFinished()), SLOT(test()));
+
 
     /*Захордкодил.Через дизайнер - не применяется*/
     QPalette p = ui->checkBox_rememberPasswd->palette( );
     QColor grey( 0xBA, 0xBD, 0xB6 );
-
     p.setColor( QPalette::Active, QPalette::Base, grey );
     p.setColor( QPalette::Inactive, QPalette::Base, grey );
     p.setColor( QPalette::Disabled, QPalette::Base, grey );
@@ -94,8 +95,6 @@ void LogregDialog::signIn()
                                       ui->passwordLine->text());
 }
 
-
-
 void LogregDialog::signUp()
 {
     //ui->Loader->show();
@@ -106,8 +105,6 @@ void LogregDialog::signUp()
                                      ui->passwordRegLine->text(),
                                      ui->emailRegLine->text());
 }
-
-
 
 void LogregDialog::showLoginStatus(const QString &msg)
 {
@@ -173,3 +170,8 @@ void LogregDialog::userNameCompleter_activated(const QString& user)
     if(!passwd.isEmpty())
         ui->checkBox_rememberPasswd->setChecked(true);
 }
+
+//void LogregDialog::test()
+//{
+//    ui->PushButton_StartReg->setDisabled(false);
+//}

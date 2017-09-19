@@ -13,7 +13,7 @@ public:
     // располагаться выполняемый код
     void run();
     DbManager pntDb;
-    QMap<DbManager::users_accountTbl,QVariant> d;
+
 private:
     const QString name;   // Имя потока
 };

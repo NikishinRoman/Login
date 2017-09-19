@@ -18,7 +18,7 @@ void LoginManager::startAuthorization(const QString &username,const QString &pas
         emit AuthorizationOk(id);
     }
     else{
-        emit AuthorizationBad("Пара логин/пароль не совпали");
+        emit AuthorizationBad(OperationInfo);
     }
 }
 
@@ -33,6 +33,7 @@ void LoginManager::startRegistration(const QString& username,const QString& pass
         emit RegistrationBad("Ошибка: Введены не все данные");
         return;
     }
+
 
     if(CtrlDataBase.isUserNameSelected(username)){
         emit RegistrationBad("Ошибка:Имя пользователя занято");
@@ -53,15 +54,9 @@ void LoginManager::startRegistration(const QString& username,const QString& pass
         emit RegistrationOk("Регистрация успешна");
     }
     else{
-        qDebug() << "Ошибка регистрации";
-        //emit RegistrationBad(this->OperationInfo);
+        emit RegistrationBad(this->OperationInfo);
     }
 }
 
-
-void LoginManager::errorHandleDb(const QString &msg)
-{
-    Q_UNUSED(msg);
-}
 
 

@@ -5,14 +5,12 @@
 
 DbManager::DbManager()
 {
-
     this->connectDataBase();
 }
 
 
 DbManager::~DbManager()
 {
-
     if(this->disconnect()){
         qDebug() << "Disconnect DB";
     }
@@ -50,7 +48,8 @@ bool DbManager::connectDataBase()
 
     if(QSqlDatabase::contains(QSqlDatabase::defaultConnection)) {
         db = QSqlDatabase::database();
-    } else {
+    }
+    else{
 //        this->db = QSqlDatabase::addDatabase("QPSQL");
 //        this->db.setHostName("localhost");
 //        this->db.setDatabaseName("user_accounts");
@@ -58,10 +57,10 @@ bool DbManager::connectDataBase()
 //        this->db.setPassword("Qwerty123!");
 
         this->db = QSqlDatabase::addDatabase("QPSQL");
-            this->db.setHostName("192.168.146.52");
-            this->db.setDatabaseName("user_accounts");
-            this->db.setUserName("nikishyn");
-            this->db.setPassword("Qwerty123!");
+        this->db.setHostName("192.168.146.52");
+        this->db.setDatabaseName("user_accounts");
+        this->db.setUserName("nikishyn");
+        this->db.setPassword("Qwerty123!");
     }
 
     ret = this->db.open();
@@ -113,17 +112,11 @@ bool DbManager::insertDataToTable(QString& OperationInfo)
 
     bool isOK = query.exec();
 
-    if(!isOK){
-        qDebug() << "Data was not insert";
-        qDebug() << query.lastError().text();
-        OperationInfo = query.lastError().text();
-    }
-    else{
-        OperationInfo = "Ok";
-    }
 
     userInfo.clear();               /*Очищаем данные*/
-
+    if(!isOK){
+        OperationInfo = "Соединение с сервером отсутствует";
+    }
     return isOK;
 
 }
@@ -144,20 +137,17 @@ qint64 DbManager::getId(QString& OperationInfo)
 
 
     if(!query.exec()){
-        qDebug() << " Data was not select";
-        qDebug() << query.lastError().text();
-        OperationInfo = query.lastError().text();
-        retId = -1;
+        OperationInfo = "Соединение с сервером отсутствует";
+        return -1;
     }
 
-    if (query.next()){
-        retId =  query.value(DbManager::_ID).toInt();
-        OperationInfo = "Ok";
-    }
-    else{
-        retId = -1;
+    if (!query.next()){
+         OperationInfo = "Запись не найдена";
+        return -1;
     }
 
+    retId =  query.value(DbManager::_ID).toInt();
+    OperationInfo = "Ok";
     this->userInfo.clear();
 
     return retId;
@@ -167,38 +157,31 @@ qint64 DbManager::getId(QString& OperationInfo)
 
 bool DbManager::isUserNameSelected(const QString &username)
 {
-
-
     return isAvailableData("user_name",username);
-
 }
 
 bool DbManager::isEmailSelected(const QString &email)
 {
-
     return isAvailableData("email",email);
-
 }
 
 
 /*
- * return  false данных в таблице нет, true - существуют
+ * return  false данных в таблице нет(нет соеденинения с Бд), true - существуют
 */
 bool DbManager::isAvailableData(const QString &columnName, QVariant data)
 {
-    //bool ret;
-    QSqlQuery query(this->db);
 
-    //qDebug() <<  "SELECT " + columnName + " FROM user_accounts WHERE "+columnName + " = (:key)";
+    QSqlQuery query(this->db);
 
     query.prepare("SELECT " + columnName + " FROM user_accounts WHERE "+columnName + " = (:key)");
     query.bindValue(":key", data.toString());
 
     query.exec();
 
-    qDebug() << query.lastError().text() ;//<< ret;
 
-    return query.next();
+
+    return query.next();;
 }
 
 

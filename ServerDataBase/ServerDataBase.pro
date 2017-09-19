@@ -33,7 +33,9 @@ SOURCES += \
     logregdialog.cpp \
     clickablelabel.cpp \
     accountsCache.cpp \
-    utils.cpp
+    utils.cpp \
+    emaillineedit.cpp \
+    examplethreads.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +44,9 @@ HEADERS += \
     logregdialog.h \
     clickablelabel.h \
     accountsCache.h \
-    utils.h
+    utils.h \
+    emaillineedit.h \
+    examplethreads.h
 
 FORMS += \
         mainwindow.ui \

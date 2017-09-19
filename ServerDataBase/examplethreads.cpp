@@ -4,24 +4,28 @@
 
 QMutex	m_mutex;
 ExampleThreads::ExampleThreads(QString threadName) :
-    name(threadName),pntDb(threadName)
+    name(threadName)
 {
 
 }
 
 void ExampleThreads::run()
 {
-
+    QString d;
+    QString f;
     for (int i = 0; i <= 150; i++ ) {
 
-//        d[DbManager::USER_NAME] = name;
-//        d[DbManager::PASSWORD] = i;
-//        m_mutex.lock();
-//        pntDb.insertDataToTable(d);
-//        m_mutex.unlock();
+        f = QString::number(i) + this->name;
+        pntDb.setUserName( f );
+        pntDb.setPassword(f);
+        pntDb.setEmail(f);
 
-        qDebug() << pntDb.getId(name,0);
-        //qDebug() << name << " " << i;
+
+
+        pntDb.insertDataToTable(d);
+
+
+       //qDebug() << name << " " << i;
     }
 
 }
